@@ -80,8 +80,10 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
 //        ivImage.setImageResource(R.drawable.ican);
 
+//        Picasso p = new Picasso.Builder(getContext()).memoryCache()
 
         String pf = imageInfo.getPhotoFileScaled().getUrl();
+
         Picasso.with(getContext()).load(Uri.parse(pf))
                 .noFade().resize(500,500)
                 .centerCrop().into(ivImage);
