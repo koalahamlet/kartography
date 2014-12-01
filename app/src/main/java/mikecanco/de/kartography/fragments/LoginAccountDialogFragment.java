@@ -15,10 +15,10 @@ import com.parse.ParseUser;
 import mikecanco.de.kartography.R;
 import mikecanco.de.kartography.activities.MainActivity;
 
-public class LoginAccountFragment extends DialogFragment {
+public class LoginAccountDialogFragment extends DialogFragment {
 
-    public static LoginAccountFragment newInstance(String title) {
-        LoginAccountFragment ca = new LoginAccountFragment();
+    public static LoginAccountDialogFragment newInstance(String title) {
+        LoginAccountDialogFragment ca = new LoginAccountDialogFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         ca.setArguments(args);
@@ -68,7 +68,7 @@ public class LoginAccountFragment extends DialogFragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginAccountFragment.this.dismiss();
+                LoginAccountDialogFragment.this.dismiss();
             }
         });
 

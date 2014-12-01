@@ -23,15 +23,15 @@ import java.util.List;
 import mikecanco.de.kartography.R;
 import mikecanco.de.kartography.activities.MainActivity;
 
-public class CreateAccountFragment extends DialogFragment {
+public class CreateAccountDialogFragment extends DialogFragment {
     String un, em, pw, re_pw;
     EditText username;
     EditText password;
     EditText re_password;
     EditText email;
 
-    public static CreateAccountFragment newInstance(String title) {
-        CreateAccountFragment ca = new CreateAccountFragment();
+    public static CreateAccountDialogFragment newInstance(String title) {
+        CreateAccountDialogFragment ca = new CreateAccountDialogFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         ca.setArguments(args);
@@ -127,7 +127,7 @@ public class CreateAccountFragment extends DialogFragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateAccountFragment.this.dismiss();
+                CreateAccountDialogFragment.this.dismiss();
             }
         });
 

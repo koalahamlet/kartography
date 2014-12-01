@@ -28,6 +28,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.PoiDetailActivity"
+            android:label="@string/title_activity_poi_detail" >
+        </activity>
+        <activity
+            android:name=".activities.EditDetailsActivity"
+            android:label="@string/title_activity_edit_details" >
+        </activity>
+        <activity
+            android:name=".activities.TakePhotoActivity"
+            android:label="@string/title_activity_take_photo" >
+        </activity>
     </application>
 
 </manifest>

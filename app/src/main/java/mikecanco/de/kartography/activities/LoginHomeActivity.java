@@ -11,8 +11,8 @@ import com.parse.Parse;
 import com.parse.ParseUser;
 
 import mikecanco.de.kartography.R;
-import mikecanco.de.kartography.fragments.CreateAccountFragment;
-import mikecanco.de.kartography.fragments.LoginAccountFragment;
+import mikecanco.de.kartography.fragments.CreateAccountDialogFragment;
+import mikecanco.de.kartography.fragments.LoginAccountDialogFragment;
 
 public class LoginHomeActivity extends Activity {
 
@@ -43,13 +43,13 @@ public class LoginHomeActivity extends Activity {
 
     public void onCreateAccount(View v) {
         FragmentManager fm = getFragmentManager();
-        CreateAccountFragment createDialog = CreateAccountFragment.newInstance("New User");
+        CreateAccountDialogFragment createDialog = CreateAccountDialogFragment.newInstance("New User");
         createDialog.show(fm, "fragment_new_user");
     }
 
     public void onLoginAccount(View v) {
         FragmentManager fm = getFragmentManager();
-        LoginAccountFragment loginDialog = LoginAccountFragment.newInstance("Enter Username and Password");
+        LoginAccountDialogFragment loginDialog = LoginAccountDialogFragment.newInstance("Enter Username and Password");
         loginDialog.show(fm, "fragment_login");
     }
 
