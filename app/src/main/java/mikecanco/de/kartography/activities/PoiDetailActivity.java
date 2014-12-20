@@ -18,8 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -281,40 +279,6 @@ public class PoiDetailActivity extends Activity implements ConfirmFlag.ConfirmFl
         return result.toString();
     }
 
-    public void onSetFavorited(View v){
-
-        if (poi.getFavorited()){
-            ivFavorited.setImageResource(R.drawable.ic_fav_unselected);
-            poi.setFavorited(false);
-        }
-        else {
-            Animation animUp = AnimationUtils.loadAnimation(this, R.anim.favorite_scale_up);
-            ivFavorited.startAnimation(animUp);
-            animUp.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    // Fires when animation starts
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    ivFavorited.setImageResource(R.drawable.ic_fav_selected);
-                    Animation animDown = AnimationUtils.
-                            loadAnimation(PoiDetailActivity.this, R.anim.favorite_scale_down);
-                    ivFavorited.startAnimation(animDown);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                    // ...
-                }
-            });
-
-            poi.setFavorited(true);
-        }
-        poi.saveInBackground();
-
-    }
 
     public void onFlagSuccess(){
         poi.setFlagged(true);

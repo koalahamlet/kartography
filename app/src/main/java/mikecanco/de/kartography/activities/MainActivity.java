@@ -35,10 +35,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -110,12 +112,18 @@ public class MainActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+            Parse.initialize(this, "wN6gpXkwVEF0d9eTw1YzE0ISX2WM8ACdXM0ueuiu",
+                    "dGycMyN2IxdihwSV6kzDiCufYAL9UBBQEpOiRmMn");
+
         boolean finish = getIntent().getBooleanExtra("finish", false);
         if (finish) {
             startActivity(new Intent(this, LoginHomeActivity.class));
             finish();
             return;
         }
+
+
+
         ParseObject.registerSubclass(Poi.class);
         setContentView(R.layout.activity_main);
 
@@ -238,6 +246,22 @@ public class MainActivity extends Activity implements
         }
 
     }
+
+    public void onLogout(MenuItem mi) {
+        ParseUser.getCurrentUser().logOut();
+        Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.putExtra("finish", true);
+        startActivity(i);
+        finish();
+
+//		Intent intent = new Intent(this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+
+    }
+
 
     /*
      * Set up the query to update the map view

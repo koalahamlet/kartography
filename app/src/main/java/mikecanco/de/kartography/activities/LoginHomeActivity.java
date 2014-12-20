@@ -31,7 +31,6 @@ public class LoginHomeActivity extends Activity {
             startActivity(i);
             finish();
         }
-
     }
 
 //	@Override
