@@ -79,6 +79,7 @@ public class MainActivity extends Activity implements
     private int mostRecentMapUpdate = 0;
     private boolean hasSetUpInitialLocation = false;
     private String selectedObjectId;
+    private boolean didZoom = false;
     private Location lastLocation = null;
     // Fields for the map radius in feet
     private float radius = 100 ;
@@ -112,7 +113,7 @@ public class MainActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-            Parse.initialize(this, "wN6gpXkwVEF0d9eTw1YzE0ISX2WM8ACdXM0ueuiu",
+        Parse.initialize(this, "wN6gpXkwVEF0d9eTw1YzE0ISX2WM8ACdXM0ueuiu",
                     "dGycMyN2IxdihwSV6kzDiCufYAL9UBBQEpOiRmMn");
 
         boolean finish = getIntent().getBooleanExtra("finish", false);
@@ -126,12 +127,20 @@ public class MainActivity extends Activity implements
 
         ParseObject.registerSubclass(Poi.class);
         setContentView(R.layout.activity_main);
+        makeFragments();
 
-        makeMap();
         mLocationClient = new LocationClient(this, this, this);
 
         setupNavigationTabs();
 
+    }
+
+    private void makeFragments() {
+        makeMap();
+        if (lFrag == null) {
+            lFrag = new PoiListFragment();
+            lFrag.setRetainInstance(true);
+        }
     }
 
     private void makeMap() {
@@ -144,6 +153,7 @@ public class MainActivity extends Activity implements
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
+
         actionBar.setDisplayShowTitleEnabled(true);
 
         ActionBar.Tab tabList = actionBar.newTab().setText("List")
@@ -153,7 +163,6 @@ public class MainActivity extends Activity implements
         ActionBar.Tab tabMap = actionBar.newTab().setText("Map").setTag("PoiMapFragment")
                 .setIcon(R.drawable.ic_map_green).setTabListener(this);
 
-//		tabMap.set
         TabHost tabhost;
 
 
@@ -203,22 +212,27 @@ public class MainActivity extends Activity implements
         // lazy instantiation for the win
         if (tab.getTag() == "PoiListFragment") {
 
-            // FragmentManager manager = getSupportFragmentManager();
-            //
-            // android.support.v4.app.FragmentTransaction fts = manager
-            // .beginTransaction();
-
-            // fts.replace(R.id.frameContainer, new PoiListFragment());
-            if (lFrag == null) {
+            if (mMapFragment.isAdded()) {
+                fts.hide(mMapFragment);
+                fts.show(lFrag);
+            } else {
                 lFrag = new PoiListFragment();
+                fts.add(R.id.frameContainer, lFrag, "HTL");
             }
 
-            fts.replace(R.id.frameContainer, lFrag, "HTL");
             fts.commit();
         } else {
 
 
-            fts.replace(R.id.frameContainer, mMapFragment, "MF");
+            mMapFragment.setRetainInstance(true);
+            fts.hide(lFrag);
+            if (mMapFragment.isAdded()) {
+                fts.show(mMapFragment);
+            } else {
+                fts.add(R.id.frameContainer, mMapFragment, "MF");
+            }
+
+
             fts.commit();
             manager.executePendingTransactions();
             // mMapFragment = ((SupportMapFragment)
@@ -338,8 +352,6 @@ public class MainActivity extends Activity implements
 
                     if (poi.getObjectId().equals(selectedObjectId)) {
                         marker.showInfoWindow();
-
-
                         selectedObjectId = null;
                     }
                 }
@@ -482,11 +494,18 @@ public class MainActivity extends Activity implements
                 if (myLocation != null) {
                     // Toast.makeText(this, "GPS location was found!",
                     // Toast.LENGTH_SHORT).show();
+
+
                     LatLng latLng = new LatLng(myLocation.getLatitude(),
                             myLocation.getLongitude());
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-                            latLng, 17);
-                    myMap.animateCamera(cameraUpdate);
+
+                    if (!didZoom) {
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
+                                latLng, 17);
+                        myMap.animateCamera(cameraUpdate);
+                        didZoom = true;
+                    }
+
 
                     // very important method
                     doMapQuery();
