@@ -75,7 +75,7 @@ public class PoiDetailActivity extends Activity implements ConfirmFlag.ConfirmFl
 
         // initialize
         ivImage = (ImageView) findViewById(R.id.ivArt);
-        ivFavorited = (ImageView) findViewById(R.id.ivFavoritedDetail);
+//        ivFavorited = (ImageView) findViewById(R.id.ivFavoritedDetail);
         tvTitle = (TextView) findViewById(R.id.tvPhotoTitle);
         tvUser = (TextView) findViewById(R.id.tvUploaderHeader);
         tvArtist = (TextView) findViewById(R.id.tvArtist);
@@ -96,12 +96,12 @@ public class PoiDetailActivity extends Activity implements ConfirmFlag.ConfirmFl
             public void done(List<Poi> itemList, ParseException e) {
                 if (e == null) {
                     poi = itemList.get(0);
-                    if (poi.getFavorited()){
-                        ivFavorited.setImageResource(R.drawable.ic_fav_selected);
-                    }
-                    else {
-                        ivFavorited.setImageResource(R.drawable.ic_fav_unselected);
-                    }
+//                    if (poi.getFavorited()){
+//                        ivFavorited.setImageResource(R.drawable.ic_fav_selected);
+//                    }
+//                    else {
+//                        ivFavorited.setImageResource(R.drawable.ic_fav_unselected);
+//                    }
                     if (poi.getTitle() != "") {
                         tvTitle.setText(poi.getTitle());
                     } else {
