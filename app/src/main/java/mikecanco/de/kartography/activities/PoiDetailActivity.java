@@ -25,7 +25,6 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -37,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import mikecanco.de.kartography.KartographyApplication;
 import mikecanco.de.kartography.R;
 import mikecanco.de.kartography.fragments.ConfirmFlag;
 import mikecanco.de.kartography.models.Poi;
@@ -124,7 +124,8 @@ public class PoiDetailActivity extends Activity implements ConfirmFlag.ConfirmFl
                     String pfUrl = poi.getPhotoFile().getUrl();
 
                     pfs = poi.getPhotoFileScaled().getUrl();
-                    Picasso.with(getBaseContext()).load(Uri.parse(pfUrl)).noFade().fit()
+                    KartographyApplication.getSingletonPicasso()
+                            .load(Uri.parse(pfUrl)).noFade().fit()
                             .into(ivImage);
 
                     // taken out until I don't get the "not a .png file" error

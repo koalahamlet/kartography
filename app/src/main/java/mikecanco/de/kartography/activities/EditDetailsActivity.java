@@ -1,10 +1,5 @@
 package mikecanco.de.kartography.activities;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import mikecanco.de.kartography.R;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -21,8 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
+import mikecanco.de.kartography.KartographyApplication;
 import mikecanco.de.kartography.R;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -53,7 +47,8 @@ public class EditDetailsActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Picasso.with(getBaseContext()).load(Uri.parse(photoUrl)).fit().into(photoView); //   .resize(900, 900).into(photoView);
+                KartographyApplication.getSingletonPicasso()
+                        .load(Uri.parse(photoUrl)).fit().into(photoView); //   .resize(900, 900).into(photoView);
 
             }
         }, 400);

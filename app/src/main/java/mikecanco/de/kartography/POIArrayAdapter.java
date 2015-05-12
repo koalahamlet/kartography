@@ -7,7 +7,6 @@ package mikecanco.de.kartography;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
 import mikecanco.de.kartography.models.Poi;
 
 public class POIArrayAdapter extends ArrayAdapter<Poi> {
@@ -84,9 +84,13 @@ public class POIArrayAdapter extends ArrayAdapter<Poi> {
 
         String pf = imageInfo.getPhotoFileScaled().getUrl();
 
-        Picasso.with(getContext()).load(Uri.parse(pf))
+        if (pf != null && !pf.isEmpty()){
+
+            KartographyApplication.getSingletonPicasso()
+                .load(pf)
                 .noFade().resize(500,500)
                 .centerCrop().into(ivImage);
+        }
 
         //.placeholder(R.drawable.ican)
 

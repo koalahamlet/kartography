@@ -33,13 +33,13 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import mikecanco.de.kartography.KartographyApplication;
 import mikecanco.de.kartography.R;
 import mikecanco.de.kartography.models.Poi;
 import mikecanco.de.kartography.models.PoiLocation;
@@ -335,7 +335,8 @@ public class TakePhotoActivity extends Activity implements
                 imageBitmap = Bitmap.createScaledBitmap(imageBitmap,
                         (Math.round(imgW * PHOTO_PRCNT)),
                         (Math.round(imgH * PHOTO_PRCNT)), true);
-                Picasso.with(this).load(takenPhotoUri).fit().skipMemoryCache()
+                KartographyApplication.getSingletonPicasso()
+                        .load(takenPhotoUri).fit().skipMemoryCache()
                         .into(photo);
                 // photo.
                 // setImageBitmap(imageBitmapScaled);

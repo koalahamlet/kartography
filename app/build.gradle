@@ -12,10 +12,7 @@ android {
         versionName "1.0"
     }
     buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+
     }
 }
 
@@ -25,4 +22,6 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.1.2'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.google.android.gms:play-services:5.0.89'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.3.0'
+    compile 'com.squareup.okhttp:okhttp:2.3.0'
 }
